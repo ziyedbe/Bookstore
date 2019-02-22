@@ -1,0 +1,29 @@
+<div ng-app="myApp" ng-controller="customersCtrl"> 
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table table-striped" align="center">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Camper</th>
+    <th ng-click="fetch('recent')" ng-class="{'active': recent}">Points in past 30 days<span ng-show="recent"> &#9660</span></th>
+    <th ng-click="fetch('alltime')" ng-class="{'active': ! recent}">All time points<span ng-show="!recent"> &#9660</span></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="camper in tableData | orderBy:criteria :pickOrder">
+    <td>{{$index+1}}</td>
+    <td>
+      <img src="{{camper.img}}" alt="NA" class="img-circle">
+      <a ng-href="{{userHomePage+camper.username}}">{{camper.username}}</a>
+    </td>
+    <td>{{ camper.recent}}</td>
+    <td>{{ camper.alltime}}</td>
+  </tr>
+  </tbody>
+</table>
+
+    </div>
+  </div>
+
+</div>
