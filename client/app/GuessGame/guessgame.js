@@ -34,5 +34,14 @@ angular.module('myApp.GuessGame', ['ngRoute'])
 
    }
  }
+ $scope.delete = function(item) {
+   $http.delete('http://localhost:3000/library/delete/'+item._id,$scope.formData).
+   success(function(data) {
+       alert("deleted successfully");
+   }).error(function(data) {
+       alert("error in deleting");
+   })
+
+}
 
 }]);
