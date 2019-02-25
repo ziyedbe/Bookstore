@@ -23,13 +23,29 @@ angular.module('myApp.GuessGame', ['ngRoute'])
     for (var i in k) {
       if($scope.name==k[i].title){
         console.log("GG")
-        alert("GG : +10")
+        //alert("GG : +10")
         //TODO
+
+        $http.put('http://localhost:3000/library/user/5c744544b3f44e2d6f549b69', {"Score":"50"} ).
+        success(function(data) {
+            alert("Score updated");
+        }).error(function(data) {
+            alert("Score not updated");
+        })
+
+
         break;
-      }else{
+
+    }else{
         console.log("Loser")
-        alert("Loser ! -5")
+        //alert("Loser ! -5")
         //TODO
+        $http.put('http://localhost:3000/library/user/5c744544b3f44e2d6f549b69', {"Score":"-20"} ).
+        success(function(data) {
+            alert("Score updated");
+        }).error(function(data) {
+            alert("Score not updated");
+        })
       }
 
    }

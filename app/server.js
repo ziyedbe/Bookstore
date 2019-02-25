@@ -8,6 +8,10 @@ var getBooks = require('./modules/getBooks');
 var FindBook   = require('./modules/FindBook');
 var updateBook   = require('./modules/updateBook')
 var deleteBook   = require('./modules/deleteBook');
+var signup   = require('./modules/signup');
+var getUsers   = require('./modules/getusers');
+var guessgame   = require('./modules/guessgame');
+
 //
 app.use(function(req, res , next){
 	res.header('Access-Control-Allow-Origin' , '*');
@@ -25,6 +29,10 @@ getBooks.getbooks(router);
 FindBook.getbook(router);
 updateBook.updateBook(router);
 deleteBook.deletebook(router);
+signup.signup(router);
+guessgame.updatescore(router);
+
+getUsers.getUsers(router);
 router.get('/', function(req, res) {
 res.json({ message: 'welcome to our library' });
 });
