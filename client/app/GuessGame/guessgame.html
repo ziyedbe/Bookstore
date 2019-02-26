@@ -1,20 +1,30 @@
 
 <ul>
-  <td>
+  <!--td>
     <input type="text" ng-model="name" placeholder="Guess Book" required/>
   </td>
-    <button type="submit"  ng-click="submit()">Submit</button>
-  <li ng-repeat="item in list | filter : name">
+    <button type="submit"  ng-click="submit()">Submit</button-->
+<h1>Synopsis : {{ synopsis}}</h1>
+  <!--li ng-repeat="item in list | filter : name">
     <hr>
     <h3><strong> Book Title : </strong>{{ item.title}}</h3>
     <ul>
       <li><strong>Author :</strong>{{ item.author}} </li>
       <li><strong>Type :</strong>{{ item.type}} </li>
       <li><strong>Pages :</strong>{{ item.pages}} </li>
-      <li><strong>Avalability :</strong>{{ item.availability}} </li>
-      <li><strong>Book id :</strong>{{ item._id}} </li>
+      <li><strong>Avalability :</strong>{{ synopsis}} </li>
+      <li><strong>Book id :</strong>{{ synopsis}} </li>
     </ul>
     <button type="submit"  ng-click="delete(item)">Delete</button>
 <hr>
-</li>
+</li-->
+<p>Book Name:</p>
+<input type="checkbox" ng-checked="all">{{ book1}}<br>
+<input type="checkbox" ng-checked="all">{{ book2}}<br>
+<input type="checkbox" ng-checked="all">{{ book3}}<br>
+<input type="text" ng-model="name" placeholder="Write Name Here ! checkboxes under construction" required/>
+<button type="submit"  ng-click="submit()">Submit</button>
+</body>
+
+
 </ul>

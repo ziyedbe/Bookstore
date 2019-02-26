@@ -9,8 +9,8 @@ angular.module('myApp.leaderboard', ['ngRoute'])
   });
 }])
 
-.controller('getBooksCtrl', ['$scope',function($scope) {
-    $.getJSON("http://localhost:3000/library/list", function(result){
+.controller('leaderboardCtrl', ['$scope',function($scope) {
+    $.getJSON("http://localhost:3000/library/user", function(result){
       $scope.$apply(function () {
                   $scope.list = result
         });

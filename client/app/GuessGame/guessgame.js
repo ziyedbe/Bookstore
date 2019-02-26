@@ -1,6 +1,11 @@
 'use strict';
 var k
+var ran;
+var ran1;
+var ran2;
 angular.module('myApp.GuessGame', ['ngRoute'])
+
+
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/GuessGame', {
@@ -12,16 +17,32 @@ angular.module('myApp.GuessGame', ['ngRoute'])
 .controller('GuessGameCtrl', ['$scope','$http',function($scope,$http) {
   $.getJSON("http://localhost:3000/library/list", function(result){
     $scope.$apply(function () {
-                $scope.list = result
+                //$scope.list = result
+                console.log(result)
                 k=result
+                ran = Math.floor((Math.random() * k.length));
+                //console.log(ran)
+                ran1 = Math.floor((Math.random() * k.length));
+                //console.log(ran1)
+                ran2 = Math.floor((Math.random() * k.length));
+                //console.log(ran2)
+                //$scope.synopsis= "test"
+                $scope.synopsis=k[ran].author;
+                var booklist= [ran,ran1,ran2];
+                shuffleArray(booklist);
+                $scope.book1=k[booklist[0]].author;
+                $scope.book2=k[booklist[1]].author;
+                $scope.book3=k[booklist[2]].author;
 
+                //consolelog($scope.checkbox )
+                //console.log($scope.synopsis)
 
 
       });
   });
   $scope.submit = function(scope) {
-    for (var i in k) {
-      if($scope.name==k[i].title){
+
+      if($scope.name==k[ran].author){
         console.log("GG")
         //alert("GG : +10")
         //TODO
@@ -34,7 +55,7 @@ angular.module('myApp.GuessGame', ['ngRoute'])
         })
 
 
-        break;
+
 
     }else{
         console.log("Loser")
@@ -47,8 +68,8 @@ angular.module('myApp.GuessGame', ['ngRoute'])
             alert("Score not updated");
         })
       }
+      res.redirect("/id/" + req.body.id);
 
-   }
  }
  $scope.delete = function(item) {
    $http.delete('http://localhost:3000/library/delete/'+item._id,$scope.formData).
@@ -61,3 +82,10 @@ angular.module('myApp.GuessGame', ['ngRoute'])
 }
 
 }]);
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
