@@ -3,7 +3,13 @@ var k
 var ran;
 var ran1;
 var ran2;
+
+var user_id;
+var userName;
+
+
 angular.module('myApp.GuessGame', ['ngRoute'])
+
 
 
 
@@ -15,24 +21,31 @@ angular.module('myApp.GuessGame', ['ngRoute'])
 }])
 
 .controller('GuessGameCtrl', ['$scope','$http',function($scope,$http) {
-  $.getJSON("http://localhost:3000/library/list", function(result){
+  var user_id = sessionStorage.getItem("user_id");
+  var userName = sessionStorage.getItem("userName");
+
+  $scope.userName=userName;
+
+  $.getJSON("http://localhost:3000/library/movie", function(result){
     $scope.$apply(function () {
+
                 //$scope.list = result
-                console.log(result)
+              //  console.log(result)
                 k=result
                 ran = Math.floor((Math.random() * k.length));
                 //console.log(ran)
                 ran1 = Math.floor((Math.random() * k.length));
+                
                 //console.log(ran1)
                 ran2 = Math.floor((Math.random() * k.length));
                 //console.log(ran2)
                 //$scope.synopsis= "test"
-                $scope.synopsis=k[ran].author;
+                $scope.synopsis=k[ran].Synopsis;
                 var booklist= [ran,ran1,ran2];
                 shuffleArray(booklist);
-                $scope.book1=k[booklist[0]].author;
-                $scope.book2=k[booklist[1]].author;
-                $scope.book3=k[booklist[2]].author;
+                $scope.book1=k[booklist[0]].title;
+                $scope.book2=k[booklist[1]].title;
+                $scope.book3=k[booklist[2]].title;
 
                 //consolelog($scope.checkbox )
                 //console.log($scope.synopsis)
@@ -42,17 +55,31 @@ angular.module('myApp.GuessGame', ['ngRoute'])
   });
   $scope.submit = function(scope) {
 
-      if($scope.name==k[ran].author){
+      if($scope.name==k[ran].title){
         console.log("GG")
         //alert("GG : +10")
         //TODO
 
-        $http.put('http://localhost:3000/library/user/5c744544b3f44e2d6f549b69', {"Score":"50"} ).
-        success(function(data) {
-            alert("Score updated");
-        }).error(function(data) {
-            alert("Score not updated");
-        })
+
+        console.log(user_id);
+        $http.put('http://localhost:3000/library/user/'+user_id, {"Score":"50"} ).
+        then(function onSuccess(response) {
+          // Handle success
+          var data = response.data;
+          var status = response.status;
+          var statusText = response.statusText;
+          var headers = response.headers;
+          var config = response.config;
+
+        }, function onError(response) {
+          // Handle error
+          var data = response.data;
+          var status = response.status;
+          var statusText = response.statusText;
+          var headers = response.headers;
+          var config = response.config;
+          console.log("Nop")
+        });
 
 
 
@@ -62,22 +89,46 @@ angular.module('myApp.GuessGame', ['ngRoute'])
         //alert("Loser ! -5")
         //TODO
         $http.put('http://localhost:3000/library/user/5c744544b3f44e2d6f549b69', {"Score":"-20"} ).
-        success(function(data) {
-            alert("Score updated");
-        }).error(function(data) {
-            alert("Score not updated");
-        })
-      }
-      res.redirect("/id/" + req.body.id);
+        then(function onSuccess(response) {
+          // Handle success
+          var data = response.data;
+          var status = response.status;
+          var statusText = response.statusText;
+          var headers = response.headers;
+          var config = response.config;
 
+        }, function onError(response) {
+          // Handle error
+          var data = response.data;
+          var status = response.status;
+          var statusText = response.statusText;
+          var headers = response.headers;
+          var config = response.config;
+          console.log("Nop")
+        });
+      }
+
+      //$(location).attr('href', '/#!/GuessGame');
  }
  $scope.delete = function(item) {
    $http.delete('http://localhost:3000/library/delete/'+item._id,$scope.formData).
-   success(function(data) {
-       alert("deleted successfully");
-   }).error(function(data) {
-       alert("error in deleting");
-   })
+   then(function onSuccess(response) {
+     // Handle success
+     var data = response.data;
+     var status = response.status;
+     var statusText = response.statusText;
+     var headers = response.headers;
+     var config = response.config;
+
+   }, function onError(response) {
+     // Handle error
+     var data = response.data;
+     var status = response.status;
+     var statusText = response.statusText;
+     var headers = response.headers;
+     var config = response.config;
+     console.log("Nop")
+   });
 
 }
 

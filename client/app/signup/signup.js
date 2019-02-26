@@ -11,12 +11,33 @@ angular.module('myApp.signup', ['ngRoute'])
 
 .controller('signupCtrl', ['$scope','$http',function($scope,$http) {
   $scope.submit = function() {
-    
+
      $http.post('http://localhost:3000/library/user',$scope.formData).
-     success(function(data) {
-         alert("signup successfully");
-     }).error(function(data) {
-         alert("error in signup");
-     })
- }
+     then(function onSuccess(response) {
+       // Handle success
+       var data = response.data;
+       var status = response.status;
+       var statusText = response.statusText;
+       var headers = response.headers;
+       var config = response.config;
+       sessionStorage.clear();
+       sessionStorage.setItem("user_id", data._id)
+       sessionStorage.setItem("userName", data.userName)
+       $(location).attr('href', '/#!/GuessGame')
+
+     }, function onError(response) {
+       // Handle error
+       var data = response.data;
+       var status = response.status;
+       var statusText = response.statusText;
+       var headers = response.headers;
+       var config = response.config;
+       console.log("Nop")
+     });
+ };
+ $scope.redirect = function() {
+    $(location).attr('href', '/#!/signin');
+
+
+ };
 }]);

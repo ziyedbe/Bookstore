@@ -7,14 +7,7 @@ var signup={};
 
 
 
-function createToken(user) {
-  var payload = {
-    sub: user._id,
-    iat: moment().unix(),
-    exp: moment().add(14, 'days').unix()
-  };
-  return jwt.encode(payload, config.TOKEN_SECRET);
-}
+
 signup.signup = function(router){
 
 router.route('/user').post(function(req, res) {
@@ -35,7 +28,7 @@ router.route('/user').post(function(req, res) {
   user.save(function(err) {
       if (err)
           res.send(err);
-      res.json({ message: 'Sign up sucessful' });
+      return res.json({ message: user });
 
   });
 

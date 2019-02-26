@@ -21,13 +21,10 @@ router.post('/login',function(req,res){
       return res.status(401).send({
           message: 'Wrong username and/or password'
 });
-
-
     }
     return res.status(200).send({
-        message: 'login successfull'
+        message: user
 });
-
   })
 })
 };

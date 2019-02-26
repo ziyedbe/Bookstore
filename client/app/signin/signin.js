@@ -1,4 +1,6 @@
+
 'use strict';
+
 
 angular.module('myApp.signin', ['ngRoute'])
 
@@ -20,8 +22,13 @@ angular.module('myApp.signin', ['ngRoute'])
     var statusText = response.statusText;
     var headers = response.headers;
     var config = response.config;
-    console.log("Yeay")
-    
+    console.log(data.message._id)
+    sessionStorage.clear();
+    sessionStorage.setItem("user_id", data.message._id)
+    sessionStorage.setItem("userName", data.message.userName)
+
+    $(location).attr('href', '/#!/GuessGame')
+
   }, function onError(response) {
     // Handle error
     var data = response.data;
@@ -32,4 +39,9 @@ angular.module('myApp.signin', ['ngRoute'])
     console.log("Nop")
   });
   }
+  $scope.redirect = function() {
+     $(location).attr('href', '/#!/signup');
+
+
+  };
 }]);

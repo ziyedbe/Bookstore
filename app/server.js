@@ -12,6 +12,8 @@ var signup   = require('./modules/signup');
 var getUsers   = require('./modules/getusers');
 var guessgame   = require('./modules/guessgame');
 var signin   = require('./modules/signin');
+var addmovie   = require('./modules/addmovie');
+var getMovies   = require('./modules/getMovies');
 
 //
 app.use(function(req, res , next){
@@ -32,13 +34,16 @@ updateBook.updateBook(router);
 deleteBook.deletebook(router);
 signup.signup(router);
 signin.signin(router);
-console.log(router);
+addmovie.addMovie(router);
+getMovies.getmovies(router);
+
 guessgame.updatescore(router);
 
 getUsers.getUsers(router);
 router.get('/', function(req, res) {
 res.json({ message: 'welcome to our library' });
 });
+
 app.use('/library', router);
 mongoose.connect('mongodb://localhost:27017/Books', {useMongoClient: true});
 console.log('connected to Books database');
