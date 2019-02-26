@@ -12,32 +12,24 @@ angular.module('myApp.signin', ['ngRoute'])
 .controller('signinCtrl', ['$scope','$http',function($scope,$http) {
   $scope.submit = function() {
 
-    User.findOne({
-      userName: req.body.userName
-    }, '+password', function(err, user) {
-      if (!user) {
-        return res.status(401).send({
-          message: 'Wrong username and/or password'
-        });
-      }
-      user.comparePassword(req.body.password, function(err, isMatch) {
-        if (!isMatch) {
-          return res.status(401).send({
-            message: 'Wrong username and/or password'
-          });
-        }
-        if (req.body.signedMeIn === true) {
-
-          return res.status(200).send({
-          //  token: createLongTimeToken(user)
-          });
-        } else {
-          return res.status(200).send({
-          //  token: createToken(user)
-          });
-        }
-
-      });
-    });
+    $http.post('http://localhost:3000/library/login',$scope.formData).
+  then(function onSuccess(response) {
+    // Handle success
+    var data = response.data;
+    var status = response.status;
+    var statusText = response.statusText;
+    var headers = response.headers;
+    var config = response.config;
+    console.log("Yeay")
+    
+  }, function onError(response) {
+    // Handle error
+    var data = response.data;
+    var status = response.status;
+    var statusText = response.statusText;
+    var headers = response.headers;
+    var config = response.config;
+    console.log("Nop")
+  });
   }
 }]);

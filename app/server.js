@@ -11,6 +11,7 @@ var deleteBook   = require('./modules/deleteBook');
 var signup   = require('./modules/signup');
 var getUsers   = require('./modules/getusers');
 var guessgame   = require('./modules/guessgame');
+var signin   = require('./modules/signin');
 
 //
 app.use(function(req, res , next){
@@ -30,6 +31,8 @@ FindBook.getbook(router);
 updateBook.updateBook(router);
 deleteBook.deletebook(router);
 signup.signup(router);
+signin.signin(router);
+console.log(router);
 guessgame.updatescore(router);
 
 getUsers.getUsers(router);
